@@ -11,6 +11,15 @@ This directory contains AI Passport engineering rules and reusable workflows, gr
 - [ai-guide.md](ai-guide.md): AI-assisted development workflow.
 - [Core AI skills](../../skills/README.md): development, setup, build, device testing, and diagnosis; installation and usage examples.
 
+## Pocket Notes application
+
+- [Developer handoff](pocket-notes-handoff.md): shareable complete-source snapshot, fresh-machine setup and custom-page starting points.
+- [User guide](pocket-notes.md): five pages, phone setup and the desktop assistant.
+- [Source map and custom pages](pocket-notes-page-development.md): module ownership and the complete page-extension checklist.
+- [Implemented interfaces](pocket-notes-protocol.md): authenticated desktop JSON, pairing, device setup and configuration limits.
+- [Development log](pocket-notes-development-log.md): decisions, E101 correction, accepted firmware identity and remaining checks.
+- [Eight-key Mi Home research](mihome-eight-key-research.md): existing projects, native-binding limits and HA alternatives.
+
 ## Engineering
 
 - [game-demo-to-device-acceptance.md](engineering/game-demo-to-device-acceptance.md): shared C/WebAssembly and H5 playtesting, then physical-device acceptance.

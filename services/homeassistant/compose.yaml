@@ -1,0 +1,11 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:2026.11.0
+    container_name: ai-passport-homeassistant
+    restart: unless-stopped
+    init: true
+    network_mode: host
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./config:/config

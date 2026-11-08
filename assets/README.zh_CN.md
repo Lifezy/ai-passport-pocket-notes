@@ -15,6 +15,20 @@
 - 添加字库前评估 Flash 与内部 RAM 影响；ESP32-C3 无 PSRAM。
 - 不提交许可不允许分发的字库。
 
+多页便笺使用 [`fonts/pocket_font_16.c`](fonts/pocket_font_16.c)，通过官方
+`lv_font_conv@1.5.3` 从 `fonts/source-han/` 内未经修改的 Adobe 思源黑体
+简体中文常规字重生成。上游来源为
+[Adobe release 分支](https://github.com/adobe-fonts/source-han-sans/tree/release/OTF/SimplifiedChinese)，
+附带 SIL Open Font License 1.1（`fonts/source-han/LICENSE.txt`）。
+源 OTF SHA-256：`f1d8611151880c6c336aabeac4640ef434fa13cbfbf1ffe82d0a71b2a5637256`。
+完整转换命令位于生成 C 文件开头：16 像素、2 bpp、不压缩、无字距调整，覆盖
+ASCII、Latin-1、常见标点、温度符号、支持的中日韩标点、U+4E00–U+9FFF 及全角标点。行高 21 像素，适配
+29 像素应用行。启用 `CONFIG_LV_FONT_FMT_TXT_LARGE=y`，在 `main` 中只编译
+一次字体 C 源文件。执行 `python tools/check_pocket_font.py` 检查固定文案覆盖
+及位图边界；`fonts/pocket_font_16.codepoints` 记录准确字符清单。
+重新生成后，给检查器加 `--update-inventory` 更新清单。运行时明确提示不支持
+的动态文字。主机渲染器通过真实 LVGL 字形查询函数逐个验证清单内字符。
+
 ## 图片（images）
 
 可复用的源图与生成的显示资产放在 `images/`。

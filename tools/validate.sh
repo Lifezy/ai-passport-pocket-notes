@@ -13,6 +13,7 @@ run_static_checks() {
     local test_dir
 
     python3 tools/check_repo.py
+    python3 tools/check_pocket_font.py
 
     actionlint_bin="${ACTIONLINT_BIN:-}"
     if [[ -z "${actionlint_bin}" ]]; then
@@ -32,6 +33,39 @@ run_static_checks() {
         tests/test_demo_navigation.c main/demo_navigation.c \
         -o "${test_dir}/test_demo_navigation"
     "${test_dir}/test_demo_navigation"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_pocket_model.c main/pocket_model.c \
+        -o "${test_dir}/test_pocket_model"
+    "${test_dir}/test_pocket_model"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain tests/test_pocket_screen.c main/pocket_screen.c -o "${test_dir}/test_pocket_screen"
+    "${test_dir}/test_pocket_screen"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_pocket_pc_display.c main/pocket_pc_display.c main/pocket_model.c \
+        -o "${test_dir}/test_pocket_pc_display"
+    "${test_dir}/test_pocket_pc_display"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -ffunction-sections -fdata-sections \
+        -Itests/pocket_pc_stubs -Imain tests/test_pocket_pc_preferences.c \
+        main/pocket_config.c main/pocket_model.c main/pocket_pc_display.c main/pocket_screen.c main/pocket_setup_guard.c \
+        -Wl,--gc-sections -o "${test_dir}/test_pocket_pc_preferences"
+    "${test_dir}/test_pocket_pc_preferences"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_pocket_snmp.c main/pocket_snmp_codec.c \
+        -o "${test_dir}/test_pocket_snmp"
+    "${test_dir}/test_pocket_snmp"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_pocket_confirm.c main/pocket_confirm.c \
+        -o "${test_dir}/test_pocket_confirm"
+    "${test_dir}/test_pocket_confirm"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_pocket_setup_guard.c main/pocket_setup_guard.c \
+        -o "${test_dir}/test_pocket_setup_guard"
+    "${test_dir}/test_pocket_setup_guard"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_pocket_genshin_diagnostic.c -o "${test_dir}/test_pocket_genshin_diagnostic"
+    "${test_dir}/test_pocket_genshin_diagnostic"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain -Itests/pocket_http_stubs -Itests/bsp_stubs \
+        tests/test_pocket_http.c -o "${test_dir}/test_pocket_http"
+    "${test_dir}/test_pocket_http"
     "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
         tests/test_key_guard.c -o "${test_dir}/test_key_guard"
     "${test_dir}/test_key_guard"
@@ -75,6 +109,9 @@ run_static_checks() {
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_verify_firmware.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_archive_firmware.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_install_passport_skills.py
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_codex_companion.py
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_pc_metrics.py
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_configure_pocket.py
     rm -rf "${test_dir}"
     echo "Host tests: PASS"
 }

@@ -1,0 +1,5 @@
+menu "Pocket Notes"
+    config POCKET_NOTES_APP
+        bool "Start the four-page Pocket Notes application"
+        default y
+endmenu

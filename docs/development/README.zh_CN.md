@@ -20,6 +20,15 @@
 - [ai-guide.zh_CN.md](ai-guide.zh_CN.md)：AI 开发工作流（面向 AI 编程助手：上下文建立、需求拆解、BSP 边界、验收交付格式）。
 - [核心 AI 技能](../../skills/README.zh_CN.md)：开发、环境准备、构建、真机测试及诊断，包含安装和使用示例。
 
+## 多页便笺应用
+
+- [开发者交接说明](pocket-notes-handoff.zh_CN.md)：完整源码包、新电脑准备及自定义页面入门。
+- [使用指南](pocket-notes.zh_CN.md)：五页功能、手机设置与电脑助手。
+- [源码导航与专属页开发](pocket-notes-page-development.zh_CN.md)：模块职责与完整的扩展清单。
+- [已实现接口规范](pocket-notes-protocol.zh_CN.md)：电脑 JSON 鉴权、配对、设备设置及配置限制。
+- [开发记录](pocket-notes-development-log.zh_CN.md)：决策、E101 修复、已验收固件身份及未验证事项。
+- [米家八键方案调研](mihome-eight-key-research.zh_CN.md)：现有项目、原生绑定限制及 HA 替代路线。
+
 ## 工程约定（engineering）
 
 - [game-demo-to-device-acceptance.zh_CN.md](engineering/game-demo-to-device-acceptance.zh_CN.md)：共享 C/Wasm 游戏逻辑，先验收网页玩法，再验收真机表现。

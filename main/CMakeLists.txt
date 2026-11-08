@@ -11,6 +11,25 @@ idf_component_register(
          "demo_wifi.c"
          "demo_ble.c"
          "demo_low_power.c"
+         "pocket_model.c"
+         "pocket_screen.c"
+         "pocket_confirm.c"
+         "pocket_setup.c"
+         "pocket_setup_guard.c"
+         "pocket_ui.c"
+         "pocket_config.c"
+         "pocket_http.c"
+         "pocket_genshin.c"
+         "pocket_verification.c"
+         "pocket_codex.c"
+         "pocket_pc.c"
+         "pocket_pc_display.c"
+         "pocket_nas.c"
+         "pocket_snmp_codec.c"
+         "pocket_home.c"
+         "pocket_app.c"
     INCLUDE_DIRS "."
-    REQUIRES bsp bt esp_event esp_hw_support esp_netif esp_timer esp_wifi nvs_flash
+    EMBED_TXTFILES "../assets/web/pocket_setup.html"
+    REQUIRES bsp bt esp_event esp_hw_support esp_netif esp_timer esp_wifi nvs_flash esp_http_client esp_http_server mbedtls json lwip
 )
+target_sources(${COMPONENT_LIB} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../assets/fonts/pocket_font_16.c")

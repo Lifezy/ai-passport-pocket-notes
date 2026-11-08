@@ -1,3 +1,9 @@
+#include "sdkconfig.h"
+#if CONFIG_POCKET_NOTES_APP
+void pocket_app_main(void);
+void app_main(void) { pocket_app_main(); }
+#else
+// Retained upstream hardware-test reference; the application does not enter it.
 // main/main.c —— FoloToy AI Passport BSP 驱动参考示例:初始化 + 菜单 + 按键分发。
 //
 // 按键语义(全局统一):
@@ -277,3 +283,4 @@ void app_main(void) {
     ESP_LOGI(TAG, "就绪:Display=%d Button=%d Audio=%d Battery=%d",
              s_ok[0], s_ok[1], s_ok[2], s_ok[3]);
 }
+#endif

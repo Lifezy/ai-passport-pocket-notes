@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Passport 设置</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,"Microsoft YaHei",sans-serif;color:#193029;background:#edf4f0}*{box-sizing:border-box}body{max-width:680px;margin:auto;padding:24px 16px 48px}h1{font-size:29px;margin:6px 0}h2{font-size:20px;margin:0 0 10px}p{line-height:1.65;color:#50665f;margin:8px 0 16px}.intro{font-size:15px}section{background:#fff;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 4px 22px #18372b08}label{display:block;margin:14px 0 7px;font-weight:600;font-size:15px}input,textarea,button,select{width:100%;font:inherit;border-radius:10px}input,textarea,select{padding:13px;border:1px solid #bdcfc6;background:#fbfdfc}input:focus,textarea:focus{outline:2px solid #7ec5a7;outline-offset:1px}textarea{min-height:76px;resize:vertical}button{padding:14px;background:#176c4c;color:white;border:0;margin-top:18px;font-weight:650;cursor:pointer}button:disabled{opacity:.5;cursor:wait}small{display:block;color:#647c70;line-height:1.6;margin-top:7px}.check{font-weight:400;display:flex;gap:9px;align-items:center}.check input{width:auto}.badge{font-size:12px;font-weight:400;border-radius:20px;background:#edf4f0;padding:4px 9px;margin-left:6px}.notice{padding:14px;border-radius:12px;background:#dcefe5;line-height:1.65}#message{position:sticky;top:12px;z-index:2;white-space:pre-wrap}details summary{cursor:pointer;color:#176c4c}details p{font-size:14px}a{color:#176c4c}
+.page-order{display:flex;flex-direction:column;gap:10px}.page-item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #edf4f0;padding:5px 0}.page-item button{width:auto;padding:8px;margin:0 0 0 6px}.page-item label{margin:0}
+</style></head><body>
+<p class="intro">AI PASSPORT / 设备设置</p><h1>在手机上，一次设置好</h1>
+<p>从连接家里的 Wi-Fi 开始。其余页面可以稍后再设置，已填过的密码不会显示在这里。</p>
+<div id="message" class="notice" role="status" aria-live="polite">正在连接设备……</div>
+<section><h2>① 连接家里的 Wi-Fi</h2><p>只需设置一次，以后开机会自动连接。请选择 2.4 GHz 网络。</p>
+<form id="wifi" autocomplete="off"><label for="ssid">Wi-Fi 名称</label><input id="ssid" name="wifi_ssid" required autocomplete="off" placeholder="填写家里的 Wi-Fi 名称">
+<label for="wifi-password">Wi-Fi 密码</label><input id="wifi-password" name="wifi_password" type="password" autocomplete="new-password" placeholder="已设置过可留空保留原密码">
+<label class="check"><input type="checkbox" data-show="wifi-password">显示密码</label>
+<label class="check"><input id="open-network" type="checkbox">这是不需要密码的开放网络</label><button>保存 Wi-Fi 并重启</button></form>
+<small>设备重启后，请把手机切回家里的 Wi-Fi，再长按设备下键扫码继续设置。保存成功后仍需看设备屏幕确认联网。</small></section>
+<section><h2>② 原神便笺</h2><p>不用填写 Cookie 或账号密码。设备联网后，翻到“原神便笺”，长按确定键，用米游社 App 扫描登录二维码并由本人确认即可。</p><small>如果提示安全验证，按设备提示，用同一家庭网络中的手机扫码完成。当前支持国服。</small></section>
+<section><h2>③ Codex 额度 <span class="badge" id="codex-state">尚未设置</span></h2><p>在电脑打开“Codex 额度助手”，点击启动，把窗口显示的地址和六位配对码填在下面即可。</p>
+<form id="codex" autocomplete="off"><label for="computer-address">助手显示的电脑地址</label><input id="computer-address" name="address" required inputmode="decimal" placeholder="例如 192.168.1.20">
+<label for="pairing">六位配对码</label><input id="pairing" name="code" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" placeholder="填写电脑助手显示的六位数字">
+<button>配对并重启设备</button></form><small>先完成 Wi-Fi 设置，手机与电脑均使用家庭网络。配对码两分钟有效、只使用一次。电脑关机后，设备保留最后的数据。</small></section>
+<section><h2>④ 威联通 NAS <span class="badge" id="nas-state">尚未设置</span></h2><p>已为你预填 NAS 地址。首次需要在威联通开启只读监控，然后把监控密码填在这里。</p>
+<form id="nas" autocomplete="off"><label for="nas-host">NAS 地址</label><input id="nas-host" name="nas_host" required inputmode="decimal" placeholder="192.168.1.250">
+<label for="nas-password">只读监控密码</label><input id="nas-password" name="nas_community" type="password" autocomplete="new-password" placeholder="在威联通设置的只读团体名；留空保留原值">
+<button>保存 NAS 设置并重启</button></form><details><summary>这个密码在哪里设置？</summary><p>进入威联通管理页面，找到 SNMP 服务设置，启用 SNMPv2c 并设置专用只读团体名。这里的“监控密码”指该团体名，不是 NAS 登录密码。不同 QTS 版本位置可能不同，未找到时可以先跳过这一页。</p></details></section>
+<section><h2>⑤ 米家遥控 <span class="badge" id="home-state">尚未设置</span></h2><p>通过家中的 Home Assistant 连接米家。若还没安装 Home Assistant，可以先使用其他页面，之后再完成这一步。</p>
+<form id="home" autocomplete="off"><label for="home-url">Home Assistant 地址</label><input id="home-url" name="home_url" type="url" required placeholder="例如 http://192.168.1.20:8123">
+<label for="home-token">Home Assistant 访问令牌</label><input id="home-token" name="home_token" type="password" autocomplete="new-password" placeholder="首次填写；留空保留原值">
+<button>保存米家设置并重启</button></form><details><summary>第一次接入需要做什么？</summary><p>先在合适的常开主机安装 Home Assistant，再安装 Xiaomi Home 集成并登录米家，确认设备在 HA 中可以使用。然后在 HA 个人资料中创建一个长期访问令牌填在这里。这不是米家密码，兼容性需要逐设备验证。</p></details></section>
+<section><h2>⑥ 电脑监控</h2><p>与 Codex 共用同一个电脑助手，不用再配对。勾选要显示的内容，按需勾选，超过六项自动分成多个电脑子页；保存后设备会重启。</p>
+<form id="pc-display" autocomplete="off">
+<label class="check"><input type="checkbox" name="pc_metric" value="cpu" checked>CPU 占用</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu" checked>GPU 占用</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_temp" checked>GPU 温度</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="memory" checked>内存占用</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_memory">显存占用</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="disk" checked>系统盘占用</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="disk_free">系统盘可用空间</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="uptime">开机时长</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="status" checked>连接状态</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="memory_used_bytes">已用内存</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="memory_free_bytes">可用内存</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="memory_total_bytes">总内存</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_memory_used_bytes">已用显存</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_memory_free_bytes">可用显存</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_memory_total_bytes">总显存</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_power_w">GPU 功耗</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_fan_percent">GPU 风扇</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="gpu_clock_mhz">GPU 频率</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="cpu_clock_mhz">CPU 频率</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="disk_read_bps">磁盘读取</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="disk_write_bps">磁盘写入</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="net_rx_bps">网络接收</label>
+<label class="check"><input type="checkbox" name="pc_metric" value="net_tx_bps">网络发送</label>
+<button>保存显示内容并重启</button></form>
+<small>请关闭旧电脑助手再重新打开。GPU 指标目前读取 NVIDIA 驱动中的第一张显卡；驱动不支持或读取失败时显示“不可用”，不会影响 CPU、内存等指标。电脑监控每 30 秒刷新。</small></section>
+<section><h2>⑦ 页面顺序与启停</h2><p>用上移、下移调整顺序，取消勾选可停用页面。至少保留一页；停用不删除原设置。保存后重启，首先显示排在最前的启用页面。</p><form id="page-layout"><div class="page-order">
+<div id="page-row-genshin" class="page-item"><label class="check"><input id="page-enabled-genshin" type="checkbox" checked>原神便笺</label><div><button type="button" data-page-step="-1" data-page-id="genshin" aria-label="原神便笺上移">上移</button><button type="button" data-page-step="1" data-page-id="genshin" aria-label="原神便笺下移">下移</button></div></div>
+<div id="page-row-codex" class="page-item"><label class="check"><input id="page-enabled-codex" type="checkbox" checked>Codex 额度</label><div><button type="button" data-page-step="-1" data-page-id="codex" aria-label="Codex 额度上移">上移</button><button type="button" data-page-step="1" data-page-id="codex" aria-label="Codex 额度下移">下移</button></div></div>
+<div id="page-row-nas" class="page-item"><label class="check"><input id="page-enabled-nas" type="checkbox" checked>NAS 状态</label><div><button type="button" data-page-step="-1" data-page-id="nas" aria-label="NAS 状态上移">上移</button><button type="button" data-page-step="1" data-page-id="nas" aria-label="NAS 状态下移">下移</button></div></div>
+<div id="page-row-home" class="page-item"><label class="check"><input id="page-enabled-home" type="checkbox" checked>米家遥控</label><div><button type="button" data-page-step="-1" data-page-id="home" aria-label="米家遥控上移">上移</button><button type="button" data-page-step="1" data-page-id="home" aria-label="米家遥控下移">下移</button></div></div>
+<div id="page-row-pc" class="page-item"><label class="check"><input id="page-enabled-pc" type="checkbox" checked>电脑监控</label><div><button type="button" data-page-step="-1" data-page-id="pc" aria-label="电脑监控上移">上移</button><button type="button" data-page-step="1" data-page-id="pc" aria-label="电脑监控下移">下移</button></div></div>
+</div><button>保存页面设置并重启</button></form><small>停用页将跳过浏览与自动刷新；仍可长按下键打开设置重新启用。</small></section>
+<section><h2>⑧ 息屏与唤醒</h2><p>闲置后关闭背光，联网与数据更新继续。任意键可唤醒，首次按键只负责唤醒，稍候再操作。配网、扫码与遥控确认期间自动保持亮屏。</p>
+<form id="display-settings"><label for="screen-timeout">自动息屏时间</label><select id="screen-timeout" name="screen_timeout"><option value="0">不自动息屏</option><option value="30">30 秒</option><option value="60" selected>1 分钟</option><option value="120">2 分钟</option><option value="300">5 分钟</option></select><button>保存息屏设置并重启</button></form>
+<button id="screen-off" type="button">立即息屏</button><small>普通浏览页可长按上键息屏；米家页长按上仍刷新列表，可使用本页的立即息屏。此功能仅关闭背光，不是深度休眠。</small></section>
+<section><h2>⑨ 屏幕亮度</h2><p>调低背光可减少屏幕耗电，较亮的环境可适当调高。调整后点击应用并保存，设备立即生效，重启后保留。</p>
+<form id="brightness-settings"><label for="brightness">亮度：<span id="brightness-value">75%</span></label><input id="brightness" name="brightness" type="range" min="10" max="100" step="1" value="75"><button>应用并保存亮度</button></form><small>可调范围 10%–100%，息屏为关闭背光。息屏时保存不会自动唤醒，下一次亮屏恢复所选亮度。</small></section>
+<p class="intro">设置页面开启 10 分钟后关闭。之后长按设备下键，扫描新二维码即可再次进入。</p>
+<script>
+'use strict';
+const message=document.getElementById('message'), query=location.search;
+let saving=false,ended=false,wifiConfigured=false;
+let pageOrder=['genshin','codex','nas','home','pc'];
+function arrangePages(){pageOrder.forEach((id,index)=>document.getElementById('page-row-'+id).style.order=index);}
+document.querySelectorAll('[data-page-step]').forEach(button=>button.addEventListener('click',()=>{if(saving||ended)return;const at=pageOrder.indexOf(button.dataset.pageId),to=at+Number(button.dataset.pageStep);if(to<0||to>=pageOrder.length)return;[pageOrder[at],pageOrder[to]]=[pageOrder[to],pageOrder[at]];arrangePages();}));
+const secretKeys=new Set(['wifi_password','companion_token','nas_community','home_token']);
+function note(text){message.textContent=text;}
+const brightnessInput=document.getElementById('brightness');
+function showBrightness(){document.getElementById('brightness-value').textContent=brightnessInput.value+'%';}
+brightnessInput.addEventListener('input',showBrightness);
+function buttons(disabled){document.querySelectorAll('button').forEach(b=>b.disabled=disabled);}
+function values(form){const result={};for(const [key,value] of new FormData(form)){if(value!==''||!secretKeys.has(key))result[key]=value;}return result;}
+function pcChoices(){return [...document.querySelectorAll('[name=pc_metric]')];}
+async function save(data,path='/save'){if(saving||ended)return;saving=true;buttons(true);note('正在保存，请保持手机与设备连接……');
+try{const response=await fetch(path+query,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+if(response.status===403)throw new Error('设置会话已结束，请长按设备下键，重新扫描设备上的二维码。');
+if(!response.ok)throw new Error(path==='/codex-pair'?'配对未完成。请检查电脑地址、重新生成配对码，并确认额度助手正在运行。电脑防火墙需允许家庭网络访问。':'未能保存，请检查输入的地址、名称或密码。原设置已保留。');
+const result=await response.json();if(!result.ok)throw new Error('未能保存，请稍后重试。');if(path==='/screen-off'){note('设备已息屏，按任意键可唤醒。');return;}if(path==='/brightness'){note('亮度已保存为 '+data.brightness+'%，亮屏时立即生效，重启后保留。');return;}ended=true;
+document.querySelectorAll('input[type=password],textarea,#pairing').forEach(input=>input.value='');
+note('设置已保存，设备正在重启。若修改了 Wi-Fi，请把手机切回家里的网络，再查看设备屏幕是否联网。');
+}catch(error){note(error instanceof TypeError?'连接中断。请先查看设备是否已重启；未保存时，重新扫码再试。':error.message);}finally{saving=false;buttons(ended);}}
+document.getElementById('screen-off').addEventListener('click',()=>save({},'/screen-off'));
+document.querySelectorAll('[data-show]').forEach(box=>box.addEventListener('change',()=>document.getElementById(box.dataset.show).type=box.checked?'text':'password'));
+document.getElementById('open-network').addEventListener('change',event=>{const input=document.getElementById('wifi-password');input.disabled=event.target.checked;if(input.disabled)input.value='';});
+for(const form of document.querySelectorAll('form'))form.addEventListener('submit',event=>{event.preventDefault();let data=values(form);
+if(form.id==='wifi'){if(document.getElementById('open-network').checked)data.wifi_password='';else if(!wifiConfigured&&!data.wifi_password){note('请填写家里的 Wi-Fi 密码；没有密码的网络请勾选开放网络。');return;}}
+if(form.id==='pc-display'){const selected=pcChoices().filter(input=>input.checked).map(input=>input.value);if(selected.length<1||selected.length>24){note('电脑监控请至少选择一项、最多选择二十四项。');return;}data={pc_display:selected.join(',')};}
+if(form.id==='page-layout'){if(!pageOrder.some(id=>document.getElementById('page-enabled-'+id).checked)){note('请至少启用一个页面。');return;}data={page_layout:pageOrder.map(id=>(document.getElementById('page-enabled-'+id).checked?'':'-')+id).join(',')};}
+if(form.id==='brightness-settings'&&(!/^\d{2,3}$/.test(data.brightness)||Number(data.brightness)<10||Number(data.brightness)>100)){note('亮度请选择 10%–100%。');return;}
+save(data,form.id==='brightness-settings'?'/brightness':form.id==='display-settings'?'/display-settings':form.id==='page-layout'?'/page-layout':form.id==='codex'?'/codex-pair':form.id==='pc-display'?'/pc-display':'/save');});
+buttons(true);fetch('/status'+query).then(response=>{if(!response.ok)throw new Error();return response.json();}).then(data=>{
+for(const key of ['wifi_ssid','nas_host','home_url']){const input=document.querySelector('[name='+key+']');if(input)input.value=data[key]||'';}
+wifiConfigured=Boolean(data.wifi_ssid);
+document.getElementById('screen-timeout').value=String([0,30,60,120,300].includes(data.screen_timeout)?data.screen_timeout:60);
+brightnessInput.value=String(Number.isInteger(data.brightness)&&data.brightness>=10&&data.brightness<=100?data.brightness:75);showBrightness();
+if(typeof data.page_layout==='string'){const tokens=data.page_layout.split(','),ids=tokens.map(token=>token.replace(/^-/ ,''));if(ids.length!==5||new Set(ids).size!==5||ids.some(id=>!pageOrder.includes(id)))throw new Error('Invalid page layout');pageOrder=ids;tokens.forEach((token,index)=>document.getElementById('page-enabled-'+ids[index]).checked=!token.startsWith('-'));}
+arrangePages();
+const selected=(typeof data.pc_display==='string'?data.pc_display:'cpu,gpu,gpu_temp,memory,disk,status').split(',');
+pcChoices().forEach(input=>input.checked=selected.includes(input.value));
+for(const [element,key] of [['codex-state','codex_ready'],['nas-state','nas_ready'],['home-state','home_ready']])document.getElementById(element).textContent=data[key]?'已设置':'尚未设置';
+note('已连接设备。选择需要设置的项目即可，其他设置会保留。');buttons(false);
+}).catch(()=>note('暂时无法连接设备。请确认手机仍在设备热点或同一家庭网络，并扫描设备上的新二维码。'));
+</script></body></html>

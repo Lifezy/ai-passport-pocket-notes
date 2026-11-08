@@ -1,9 +1,21 @@
 build/
+__pycache__/
+*.pyc
 sdkconfig
 sdkconfig.old
 managed_components/
 .vscode/
 .idea/
+
+# Local credentials and private export material must stay out of public commits.
+.env
+.env.*
+*.key
+*.pem
+*.p12
+companion.token
+auth.json
+credentials.json
 
 # Generated repository-local links; canonical skill sources live in skills/.
 /.agents/skills/passport-develop

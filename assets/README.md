@@ -17,6 +17,22 @@ Store reusable font files and generated font sources in `fonts/`.
 - Check Flash and internal-RAM impact before adding a font; the ESP32-C3 has no PSRAM.
 - Do not commit fonts whose license does not permit redistribution.
 
+Pocket Notes uses [`fonts/pocket_font_16.c`](fonts/pocket_font_16.c), generated
+with official `lv_font_conv@1.5.3` from the unchanged Adobe Source Han Sans SC
+Regular font in `fonts/source-han/`. The upstream source is
+[Adobe's release branch](https://github.com/adobe-fonts/source-han-sans/tree/release/OTF/SimplifiedChinese),
+under the included SIL Open Font License 1.1 (`fonts/source-han/LICENSE.txt`).
+Source OTF SHA-256: `f1d8611151880c6c336aabeac4640ef434fa13cbfbf1ffe82d0a71b2a5637256`.
+The full conversion command is embedded at the start of the generated C file:
+16 px, 2 bpp, uncompressed, no kerning; ASCII, Latin-1, common punctuation, degree symbols, supported CJK punctuation,
+U+4E00–U+9FFF, and fullwidth punctuation. The 21 px line height fits the 29 px
+application rows. Enable `CONFIG_LV_FONT_FMT_TXT_LARGE=y` and compile the C source
+once in `main`. Run `python tools/check_pocket_font.py` for fixed-text coverage
+and bitmap bounds; `fonts/pocket_font_16.codepoints` records the exact inventory.
+After regenerating, run the checker with `--update-inventory`. Runtime checks
+reject unsupported dynamic text visibly. The host renderer verifies every
+inventory code point through the actual LVGL glyph lookup function.
+
 ## Images
 
 Store reusable source images and generated display assets in `images/`.

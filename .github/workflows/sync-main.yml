@@ -12,7 +12,8 @@ jobs:
   sync_latest_from_upstream:
     name: Sync latest commits from upstream repo
     runs-on: ubuntu-latest
-    if: ${{ github.event.repository.fork }}
+    # Standalone application: upstream updates require review instead of overwriting main.
+    if: ${{ vars.ENABLE_UPSTREAM_SYNC == 'true' && github.event.repository.fork }}
 
     steps:
       # Step 1: run a standard checkout action
