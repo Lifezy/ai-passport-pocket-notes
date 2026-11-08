@@ -24,12 +24,24 @@
 | 导航 | 手机设置页面顺序、启用或停用业务页 |
 | 显示 | 手机与设备端设置亮度和闲置息屏时间，重启保留；可关闭自动息屏 |
 
-<p>
-  <img src="docs/assets/pocket-notes-settings.png" width="240" alt="设备端屏幕设置">
-  <img src="docs/assets/pocket-notes-pc.png" width="240" alt="电脑监控子页">
-</p>
+## 核心页面展示
 
-以上是模拟数据的主机渲染示例，不是真实账号截图。
+<table>
+  <tr><th>原神便笺</th><th>Codex 额度</th></tr>
+  <tr>
+    <td><img src="docs/assets/pocket-notes-genshin.png" width="240" alt="原神树脂、每日委托、探索派遣和洞天宝钱"></td>
+    <td><img src="docs/assets/pocket-notes-codex.png" width="240" alt="Codex 额度窗口及重置时间"></td>
+  </tr>
+  <tr><th>NAS 状态</th><th>电脑监控</th></tr>
+  <tr>
+    <td><img src="docs/assets/pocket-notes-nas.png" width="240" alt="NAS CPU、内存、存储、可用空间与运行时间"></td>
+    <td><img src="docs/assets/pocket-notes-pc.png" width="240" alt="电脑 CPU、GPU、GPU 温度、内存和系统盘"></td>
+  </tr>
+</table>
+
+以上使用实际 LVGL 应用渲染，数据为模拟示例，不是真实账号截图。未提供的可选
+Codex 余额/卡字段显示为 `--`。可用以下命令重新生成：
+`python docs/assets/render-core-pages.py --lvgl <lvgl-source> --zig <zig-executable>`。
 
 ## 硬件与构建
 

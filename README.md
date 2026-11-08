@@ -27,12 +27,25 @@ official FoloToy, OpenAI, HoYoverse, QNAP or Xiaomi application.
 | Navigation | Reorder and enable/disable business pages from the phone settings page |
 | Display | Phone and on-device brightness/idle-timeout settings, saved across restarts; automatic screen-off can be disabled |
 
-<p>
-  <img src="docs/assets/pocket-notes-settings.png" width="240" alt="On-device screen settings">
-  <img src="docs/assets/pocket-notes-pc.png" width="240" alt="PC monitoring subpage">
-</p>
+## Core pages
 
-Host-rendered examples with synthetic data, not live account screenshots.
+<table>
+  <tr><th>Genshin daily notes</th><th>Codex allowances</th></tr>
+  <tr>
+    <td><img src="docs/assets/pocket-notes-genshin.png" width="240" alt="Genshin resin, daily commissions, expeditions and realm currency"></td>
+    <td><img src="docs/assets/pocket-notes-codex.png" width="240" alt="Codex allowance windows and reset times"></td>
+  </tr>
+  <tr><th>NAS status</th><th>PC monitoring</th></tr>
+  <tr>
+    <td><img src="docs/assets/pocket-notes-nas.png" width="240" alt="NAS CPU, memory, storage, free space and uptime"></td>
+    <td><img src="docs/assets/pocket-notes-pc.png" width="240" alt="PC CPU, GPU, GPU temperature, memory and system drive"></td>
+  </tr>
+</table>
+
+Rendered from the actual LVGL application with synthetic example data, never
+private account screenshots. Unsupported optional Codex balance/card fields
+are shown as `--`. Reproduce the images with
+`python docs/assets/render-core-pages.py --lvgl <lvgl-source> --zig <zig-executable>`.
 
 ## Hardware and build
 
